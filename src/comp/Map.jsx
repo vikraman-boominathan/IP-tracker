@@ -1,21 +1,34 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 
-const Map = () => {
+const MapUpdater = ({ coordinates }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (coordinates) {
+      map.setView([coordinates.lat, coordinates.lon], map.getZoom());
+    }
+  }, [coordinates, map]);
+
+  return null;
+};
+
+const Map = ({ coordinates }) => {
+  const position = [coordinates.lat, coordinates.lon];
+
   return (
-    <MapContainer center={[12.505, -0.09]} zoom={13} style={{ height: "500px", width: "100%" }}>
+    <MapContainer center={position} zoom={13} style={{ height: "500px", width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={[12.505, -0.09]}>
-        <Popup>
-          A sample popup on a marker.
-        </Popup>
+      <Marker position={position} key={`${coordinates.lat}-${coordinates.lon}`}>
+        <Popup>A sample popup on a marker.</Popup>
       </Marker>
+
+      <MapUpdater coordinates={coordinates} />
     </MapContainer>
   );
-}
+};
 
 export default Map;
-
