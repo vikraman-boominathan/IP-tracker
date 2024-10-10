@@ -1,6 +1,18 @@
 import { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import "../../node_modules/leaflet/dist/leaflet.css";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+const DefaultIcon = L.icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconAnchor: [12, 41], 
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const MapUpdater = ({ coordinates }) => {
   const map = useMap();
@@ -21,7 +33,7 @@ const Map = ({ coordinates }) => {
     <MapContainer
       center={position}
       zoom={13}
-      style={{ height: "800px", width: "100%" }}
+      style={{ height: "635px", width: "100%" }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
