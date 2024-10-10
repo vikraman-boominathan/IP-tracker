@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import "../../node_modules/leaflet/dist/leaflet.css";
 
 const MapUpdater = ({ coordinates }) => {
   const map = useMap();
@@ -17,7 +18,11 @@ const Map = ({ coordinates }) => {
   const position = [coordinates.lat, coordinates.lon];
 
   return (
-    <MapContainer center={position} zoom={13} style={{ height: "500px", width: "100%" }}>
+    <MapContainer
+      center={position}
+      zoom={13}
+      style={{ height: "800px", width: "100%" }}
+    >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
